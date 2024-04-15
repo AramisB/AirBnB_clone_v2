@@ -130,15 +130,14 @@ class HBNBCommand(cmd.Cmd):
 
         if value[0] == '"' and value[-1] == '"':
             value = value[1:-1]
-
-        try:
-            if "." in value:
-                value = float(value)
-            elif value.isdigit():
-                value = int(value)
-        except ValueError:
-            pass
-
+        else:
+            try:
+                if "." in value:
+                    value = float(value)
+                elif value.isdigit():
+                    value = int(value)
+            except ValueError:
+                pass
         kwargs[key] = value
 
         new_instance = self.classes[class_name](**kwargs)

@@ -14,13 +14,13 @@ class BaseModel:
         self.updated_at = datetime.now()
         if kwargs:
             kwargs.pop('__class__', None)
+            if 'created_at' in kwargs:
+                kwargs['created_at'] = datetime.strptime(kwargs['created_at'], '%Y-%m-%dT%H:%M:%S.%f')
             if 'updated_at' in kwargs:
                 kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'], '%Y-%m-%dT%H:%M:%S.%f')
-            else:
-                kwargs['updated_at'] = datetime.now()
             self.__dict__.update(kwargs)
         storage.new(self)
-        
+
     def __str__(self):
         """Returns a string representation of the instance"""
         cls = (str(type(self)).split('.')[-1]).split('\'')[0]
