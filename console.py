@@ -127,18 +127,14 @@ class HBNBCommand(cmd.Cmd):
         kwargs = {}
         for param in parameters:
             key, value = param.split("=")
-
-        if value[0] == '"' and value[-1] == '"':
-            value = value[1:-1]
-        else:
-            try:
-                if "." in value:
-                    value = float(value)
-                elif value.isdigit():
-                    value = int(value)
-            except ValueError:
-                pass
-        kwargs[key] = value
+            if value[0] == '"' and value[-1] == '"':
+                value = value[1:-1].replace("_", " ")
+            else:
+                try:
+                    value = eval(value)
+                except (SyntaxError, NameError):
+                    continue
+            kwargs[key] = value
 
         new_instance = self.classes[class_name](**kwargs)
         new_instance.save()
