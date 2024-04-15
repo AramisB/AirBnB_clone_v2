@@ -63,7 +63,6 @@ class FileStorage:
             return
 
         key = str(obj.__class__.__name__ + '.' + obj.id)
-        print(key)
         key_exists = FileStorage.__objects.get(key, 0)
         if key_exists != 0:
             del FileStorage.__objects[key]
