@@ -17,16 +17,11 @@ class Place(BaseModel, Base):
     number_bathrooms = Column(Integer, nullable=False, default=0)
     max_guest = Column(Integer, nullable=False, default=0)
     price_by_night = Column(Integer, nullable=False, default=0)
-<<<<<<< HEAD
     latitude = Column(Float, default=0, nullable=True)
     longitude = Column(Float, default=0, nullable=True)
-=======
-    latitude = Column(Float, default=0)
-    longitude = Column(Float, default=0)
     reviews = relationship('Review', backref='place')
 
     @property
     def reviews(self):
         "A getter for the reviews"
         return self.reviews
->>>>>>> af5a39a295ffdd878143d618845c3a639e31d5d3
