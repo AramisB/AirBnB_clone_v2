@@ -15,7 +15,7 @@ class State(BaseModel, Base):
     def __init__(self, *args, **kwargs):
         """Initializes a new state"""
         super().__init__(*args, **kwargs)
-    
+
     @property
     def cities(self):
         """getter for the cities attribute"""
