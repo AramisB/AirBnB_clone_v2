@@ -9,7 +9,9 @@ class State(BaseModel, Base):
     """ State class """
     __tablename__ = "states"
     name = Column(String(128), nullable=False)
-    cities = relationship('City', backref='state')
+    cities = relationship(
+        'City', backref='state', cascade="all, delete-orphan"
+        )
 
     def __init__(self, *args, **kwargs):
         """Initializes a new state"""
