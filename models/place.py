@@ -19,3 +19,9 @@ class Place(BaseModel, Base):
     price_by_night = Column(Integer, nullable=False, default=0)
     latitude = Column(Float, default=0)
     longitude = Column(Float, default=0)
+    reviews = relationship('Review', backref='place')
+
+    @property
+    def reviews(self):
+        "A getter for the reviews"
+        return self.reviews
