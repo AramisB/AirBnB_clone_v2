@@ -38,7 +38,7 @@ class DBStorage:
                 dict_objects[obj_key] = instance
             return dict_objects
         else:
-            all_objects = ['State', 'City', 'User', 'Place', 'Reviews']
+            all_objects = ['State', 'City', 'User', 'Place', 'Review']
             dict_objects = {}
             for i in range(len(all_objects)):
                 for instance in self.__session.query(eval(
