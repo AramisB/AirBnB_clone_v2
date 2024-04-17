@@ -4,7 +4,7 @@ from models.base_model import BaseModel
 from sqlalchemy import String, Column,  ForeignKey, Integer, Float
 from models.base_model import Base
 from sqlalchemy.orm import relationship
-from models.amenity import Amenity
+from models.amenity import Amenity, association
 
 
 class Place(BaseModel, Base):
@@ -26,14 +26,3 @@ class Place(BaseModel, Base):
     def reviews(self):
         "A getter for the reviews"
         return self.reviews
-    
-    @property
-    def amenities(self):
-        """A getter for the amenities"""
-        return self.amenities
-    
-    @amenities.setter
-    def amenities(self, obj):
-        """Adds amenity object to the amenities attribute"""
-        if isinstance(obj, Amenity):
-            self.amenities.append(obj)

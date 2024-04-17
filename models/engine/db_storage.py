@@ -9,6 +9,7 @@ from models.state import State
 from models.place import Place
 from models.user import User
 from models.review import Review
+from models.amenity import Amenity
 
 
 class DBStorage:
@@ -38,7 +39,8 @@ class DBStorage:
                 dict_objects[obj_key] = instance
             return dict_objects
         else:
-            all_objects = ['State', 'City', 'User', 'Place', 'Review']
+            all_objects = ['State', 'City', 'User', 'Place',
+                           'Review', 'Amenity']
             dict_objects = {}
             for i in range(len(all_objects)):
                 for instance in self.__session.query(eval(
