@@ -7,7 +7,7 @@ from sqlalchemy.orm import relationship
 
 association = Table(
     'place_amenity',
-    Base.metadata, 
+    Base.metadata,
     Column(
         'place_id',
         ForeignKey('places.id'),
