@@ -31,5 +31,6 @@ class Amenity(BaseModel, Base):
         'Place',
         secondary=association,
         backref="amenities",
-        viewonly=False
+        viewonly=False,
+        cascade='all, delete-orphan'
         )
