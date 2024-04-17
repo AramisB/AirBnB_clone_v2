@@ -4,7 +4,7 @@ from models.base_model import BaseModel
 from sqlalchemy import String, Column,  ForeignKey, Integer, Float
 from models.base_model import Base
 from sqlalchemy.orm import relationship
-from models.amenity import Amenity
+from models.amenity import Amenity, association
 
 
 class Place(BaseModel, Base):
@@ -21,6 +21,12 @@ class Place(BaseModel, Base):
     latitude = Column(Float, default=0, nullable=True)
     longitude = Column(Float, default=0, nullable=True)
     reviews = relationship("Review", backref="place", cascade="delete")
+    amenities = relationship(
+        'Amenity',
+        secondary=association,
+        back_populates="amenities",
+        viewonly=False
+        )
 
     @property
     def reviews(self):
@@ -36,4 +42,4 @@ class Place(BaseModel, Base):
     def amenities(self, obj):
         """getter for amenities"""
         if isinstance(obj, Amenity):
-            obj.place_amenities.append(self)
+            self.append(obj)
