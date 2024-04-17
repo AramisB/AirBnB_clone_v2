@@ -30,6 +30,6 @@ class Amenity(BaseModel, Base):
     place_amenities = relationship(
         'Place',
         secondary=association,
-        back_populates="amenities",
+        backref="amenities",
         viewonly=False
         )
