@@ -1,10 +1,32 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
+from os import getenv
+import models
 from models.base_model import BaseModel
-from sqlalchemy import String, Column,  ForeignKey, Integer, Float
+from sqlalchemy import String, Column,  ForeignKey, Integer, Float, Table
 from models.base_model import Base
 from sqlalchemy.orm import relationship
 from models.amenity import Amenity
+from models.review import Review
+
+
+
+association_table = Table(
+    'place_amenity',
+    Base.metadata,
+    Column(
+        'place_id',
+        ForeignKey('places.id'),
+        primary_key=True,
+        nullable=False
+        ),
+    Column(
+        'amenity_id',
+        ForeignKey('amenities.id'),
+        primary_key=True,
+        nullable=False
+        ),
+    )
 
 
 class Place(BaseModel, Base):
@@ -20,20 +42,30 @@ class Place(BaseModel, Base):
     price_by_night = Column(Integer, nullable=False, default=0)
     latitude = Column(Float, default=0, nullable=True)
     longitude = Column(Float, default=0, nullable=True)
-    reviews = relationship('Review', backref='place')
+    
+    if getenv("HBNB_TYPE_STORAGE", None) != "db":
+        amenity_ids = []
+        reviews = []
 
-    @property
-    def reviews(self):
-        "A getter for the reviews"
-        return self.reviews
+        @property
+        def reviews(self):
+            """Get a list of all linked Reviews."""
+            review_list = []
+            for review in list(models.storage.all(Review).values()):
+                if review.place_id == self.id:
+                    review_list.append(review)
+            return review_list
 
-    @property
-    def amenities(self):
-        """getter for amenities"""
-        return self.amenities
+        @property
+        def amenities(self):
+            """Get/set linked Amenities."""
+            amenity_list = []
+            for amenity in list(models.storage.all(Amenity).values()):
+                if amenity.id in self.amenity_ids:
+                    amenity_list.append(amenity)
+            return amenity_list
 
-    @amenities.setter
-    def amenities(self, obj):
-        """getter for amenities"""
-        if isinstance(obj, Amenity):
-            obj.place_amenities.append(self)
+        @amenities.setter
+        def amenities(self, value):
+            if type(value) == Amenity:
+                self.amenity_ids.append(value.id)
