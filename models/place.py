@@ -36,4 +36,4 @@ class Place(BaseModel, Base):
     def amenities(self, obj):
         """getter for amenities"""
         if isinstance(obj, Amenity):
-            self.amenities.append(obj)
+            obj.place_amenities.append(self)
