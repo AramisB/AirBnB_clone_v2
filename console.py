@@ -10,7 +10,7 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
-
+from sqlalchemy.exc import IntegrityError
 
 class HBNBCommand(cmd.Cmd):
     """ Contains the functionality for the HBNB console"""
@@ -135,10 +135,12 @@ class HBNBCommand(cmd.Cmd):
                 except (SyntaxError, NameError):
                     continue
             kwargs[key] = value
-
-        new_instance = self.classes[class_name](**kwargs)
-        new_instance.save()
-        print(new_instance.id)
+        try:
+            new_instance = self.classes[class_name](**kwargs)
+            new_instance.save()
+            print(new_instance.id)
+        except IntegrityError:
+            pass
 
     def help_create(self):
         """ Help information for the create method """
@@ -169,7 +171,7 @@ class HBNBCommand(cmd.Cmd):
 
         key = c_name + "." + c_id
         try:
-            print(storage._FileStorage__objects[key])
+            print(storage.all())
         except KeyError:
             print("** no instance found **")
 
