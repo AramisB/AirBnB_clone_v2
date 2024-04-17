@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
 from os import getenv
-from models import storage
+import models
 from models.base_model import BaseModel
 from sqlalchemy import String, Column,  ForeignKey, Integer, Float, Table
 from models.base_model import Base
@@ -49,7 +49,7 @@ class Place(BaseModel, Base):
         def reviews(self):
             """Get a list of all linked Reviews."""
             review_list = []
-            for review in list(storage.all(Review).values()):
+            for review in list(models.storage.all(Review).values()):
                 if review.place_id == self.id:
                     review_list.append(review)
             return review_list
