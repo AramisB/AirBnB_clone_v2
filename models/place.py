@@ -26,3 +26,8 @@ class Place(BaseModel, Base):
     def reviews(self):
         "A getter for the reviews"
         return self.reviews
+
+    @property
+    def amenities(self):
+        """getter for amenities"""
+        return self.amenities
