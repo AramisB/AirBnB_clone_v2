@@ -1,27 +1,12 @@
-Places
-+--------------------------------------+---------+--------------------------------------+
-| id                                   | name    | city_id                              |
-+--------------------------------------+---------+--------------------------------------+
-| 25fee50c-dec4-47ae-aa11-6953414a4566 | House 1 | d36c09a7-beed-4b44-bdf9-c42cba030580 |
-| 3af78199-3f3d-4a12-9969-885f83c097c6 | House 2 | d48dc711-25db-4850-9796-f81dc868220f |
-| 9ba672e4-ce72-4785-acb7-eae0e8ec87ea | House 1 | d48dc711-25db-4850-9796-f81dc868220f |
-| db8bd4a2-db19-4c34-a2af-28f749441aab | House 2 | d36c09a7-beed-4b44-bdf9-c42cba030580 |
-+--------------------------------------+---------+--------------------------------------+
-4 rows in set (0.00 sec)
-
-Cities
-+--------------------------------------+---------------+
-| id                                   | name          |
-+--------------------------------------+---------------+
-| d36c09a7-beed-4b44-bdf9-c42cba030580 | San Francisco |
-| d48dc711-25db-4850-9796-f81dc868220f | San Francisco |
-+--------------------------------------+---------------+
-2 rows in set (0.00 sec)
-
-mysql> select email, id from users;
-+---------------+--------------------------------------+
-| email         | id                                   |
-+---------------+--------------------------------------+
-| john@snow.com | 9357085e-01bf-4324-aedb-e6f06ab6a1b2 |
-| john@snow.com | a6280bf2-39b2-409f-b887-55c1f7aa84fe |
-+---------------+--------------------------------------+
+5956301a-98ee-4883-b965-1d5bcb6836ac - users
+d36c09a7-beed-4b44-bdf9-c42cba030580 - city_id
+create Place city_id="d36c09a7-beed-4b44-bdf9-c42cba030580" user_id="5956301a-98ee-4883-b965-1d5bcb6836ac" name="Lovely_place" number_rooms=3 number_bathrooms=1 max_guest=6 price_by_night=120 latitude=37.773972 longitude=-122.431297
+ HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db ./console.py 
+(hbnb) create Place city_id="d36c09a7-beed-4b44-bdf9-c42cba030580" user_id="5956301a-98ee-4883-b965-1d5bcb6836ac" name="Lovely_place" number_rooms=3 number_bathrooms=1 max_guest=6 price_by_night=120 latitude=37.773972 longitude=-122.431297
+3bbbddc3-77cc-41d5-9743-7609a2e4bb97
+(hbnb) create Place city_id="d36c09a7-beed-4b44-bdf9-c42cba030580" user_id="5956301a-98ee-4883-b965-
+1d5bcb6836ac" name="Lovely_place2" longitude=-122.431297
+0990d41a-087d-4cf5-9c0f-60964c15293a
+(hbnb) show Place "0990d41a-087d-4cf5-9c0f-60964c15293a"
+** no instance found **
+(hbnb) 

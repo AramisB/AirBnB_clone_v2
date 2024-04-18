@@ -140,8 +140,8 @@ class HBNBCommand(cmd.Cmd):
             new_instance = self.classes[class_name](**kwargs)
             new_instance.save()
             print(new_instance.id)
-        except IntegrityError:
-            pass
+        except IntegrityError as e:
+            print("Database Error: {}".format(e))
 
     def help_create(self):
         """ Help information for the create method """
@@ -151,8 +151,11 @@ class HBNBCommand(cmd.Cmd):
     def do_show(self, args):
         """ Method to show an individual object """
         new = args.partition(" ")
+        print(new)
         c_name = new[0]
-        c_id = new[2][0:]
+        c_id = new[2].strip()
+        c_id = c_id.strip('"')
+        print(c_id)
 
         # guard against trailing args
         if c_id and ' ' in c_id:
