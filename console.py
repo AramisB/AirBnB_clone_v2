@@ -152,7 +152,7 @@ class HBNBCommand(cmd.Cmd):
         """ Method to show an individual object """
         new = args.partition(" ")
         c_name = new[0]
-        c_id = new[2]
+        c_id = new[2][0:]
 
         # guard against trailing args
         if c_id and ' ' in c_id:
@@ -171,10 +171,11 @@ class HBNBCommand(cmd.Cmd):
             return
 
         key = c_name + "." + c_id
-        try:
-            print(storage.all())
-        except KeyError:
+        value = storage.all().get(key, None)
+        if not value:
             print("** no instance found **")
+        else:
+            print(value)
 
     def help_show(self):
         """ Help information for the show command """
