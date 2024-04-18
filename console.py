@@ -155,7 +155,6 @@ class HBNBCommand(cmd.Cmd):
         c_name = new[0]
         c_id = new[2].strip()
         c_id = c_id.strip('"')
-        print(c_id)
 
         # guard against trailing args
         if c_id and ' ' in c_id:
