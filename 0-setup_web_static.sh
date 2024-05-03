@@ -5,8 +5,10 @@ sudo apt-get update
 
 if ! command -v nginx &>/dev/null; then
 then
-    sudo apt-get install nginx
+    sudo apt-get -y install nginx
+fi 
 
+sudo ufw allow 'Nginx HTTP'
 sudo mkdir -p '/data/web_static/shared/'
 sudo mkdir -p '/data/web_static/releases/test/'
 
