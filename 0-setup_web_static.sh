@@ -2,13 +2,9 @@
 # A script to set up web server for the deployment of web_static
 
 sudo apt-get update
-
-if ! command -v nginx &>/dev/null; then
-then
-    sudo apt-get -y install nginx
-fi 
-
+sudo apt-get -y install nginx
 sudo ufw allow 'Nginx HTTP'
+
 sudo mkdir -p '/data/web_static/shared/'
 sudo mkdir -p '/data/web_static/releases/test/'
 
@@ -32,7 +28,7 @@ sudo ln -s '/data/web_static/releases/test/' "$s_link"
 sudo chown -R ubuntu:ubuntu '/data/'
 
 # Updating the nginx.conf file to include the /hbnb_static location.
-CONFIG = "server {\n
+CONFIG="server {\n
 
         listen 80 default_server;\n
 
