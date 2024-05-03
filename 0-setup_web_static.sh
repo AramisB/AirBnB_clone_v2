@@ -13,7 +13,8 @@ s_link="/data/web_static/current"
 simple_web_content="Hello World\!\nThe test worked"
 
 if [ ! -e "$index" ]
-then touch "$index"
+then 
+    sudo touch "$index"
 fi
 
 sudo chown "$USER":"$USER" "$index"
