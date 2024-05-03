@@ -11,13 +11,13 @@ sudo mkdir -p '/data/web_static/releases/test/'
 index='/data/web_static/releases/test/index.html'
 s_link="/data/web_static/current"
 simple_web_content="
-<html>
-  <head>
-  </head>
-  <body>
-    Holberton School
-  </body>
-</html>
+<html>\n
+  <head>\n
+  </head>\n
+  <body>\n
+    Holberton School\n
+  </body>\n
+</html>\n
 "
 
 if [ ! -e "$index" ]
