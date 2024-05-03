@@ -34,7 +34,8 @@ then
 fi
 
 sudo ln -s -f '/data/web_static/releases/test/' "$s_link"
-sudo chown -R ubuntu:ubuntu '/data/'
+sudo chown -R ubuntu /data/
+sudo chgrp -R ubuntu /data/
 
 # Updating the nginx.conf file to include the /hbnb_static location.
 CONFIG="server {\n
@@ -60,6 +61,7 @@ CONFIG="server {\n
         location /hbnb_static {\n
 
             alias /data/web_static/current/;\n
+            index index.html;
         }
         location /redirect_me {\n
 
