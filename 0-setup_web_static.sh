@@ -33,7 +33,7 @@ then
     rm "$s_link"
 fi
 
-sudo ln -s '/data/web_static/releases/test/' "$s_link"
+sudo ln -s -f '/data/web_static/releases/test/' "$s_link"
 sudo chown -R ubuntu:ubuntu '/data/'
 
 # Updating the nginx.conf file to include the /hbnb_static location.
