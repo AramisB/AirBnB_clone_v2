@@ -10,7 +10,15 @@ sudo mkdir -p '/data/web_static/releases/test/'
 
 index='/data/web_static/releases/test/index.html'
 s_link="/data/web_static/current"
-simple_web_content="Hello World\!\nThe test worked"
+simple_web_content="
+<html>
+  <head>
+  </head>
+  <body>
+    Holberton School
+  </body>
+</html>
+"
 
 if [ ! -e "$index" ]
 then 
