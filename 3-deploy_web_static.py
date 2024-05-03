@@ -1,73 +1,54 @@
-#!/usr/bin/env python3
-"""A module that generates a .tgz archive from the contents of the web_static folder."""
+#!/usr/bin/python3
+"""
+Fabric script based on the file 2-do_deploy_web_static.py that creates and
+distributes an archive to the web servers
 
-from fabric.api import local, env, put, run
+execute: fab -f 3-deploy_web_static.py deploy -i ~/.ssh/id_rsa -u ubuntu
+"""
+
+from fabric.api import env, local, put, run
 from datetime import datetime
-from os.path import exists
+from os.path import exists, isdir
+env.hosts = ['54.160.77.90', '10.25.190.21']
 
-env.hosts = ['54.172.126.130', '52.90.15.79']
-env.user = 'ubuntu'
-env.key_filename = '~/.ssh/id_rsa'
 
 def do_pack():
-    """Generates a .tgz archive from the contents of the web_static folder."""
+    """generates a tgz archive"""
     try:
-        date = datetime.now()
-        timestamp = date.strftime("%Y%m%d%H%M%S")
-        archive_name = "versions/web_static_" + timestamp + ".tgz"
-        local("mkdir -p versions")
-        local("tar -cvzf {} web_static".format(archive_name))
-        return archive_name
-    except Exception as e:
-        print("Error:", e)
+        date = datetime.now().strftime("%Y%m%d%H%M%S")
+        if isdir("versions") is False:
+            local("mkdir versions")
+        file_name = "versions/web_static_{}.tgz".format(date)
+        local("tar -cvzf {} web_static".format(file_name))
+        return file_name
+    except:
         return None
 
+
 def do_deploy(archive_path):
-    """
-    Distributes an archive to your web servers
-    """
-    if not exists(archive_path):
+    """distributes an archive to the web servers"""
+    if exists(archive_path) is False:
         return False
-
     try:
-        # Upload the archive to /tmp/ directory of the web server
+        file_n = archive_path.split("/")[-1]
+        no_ext = file_n.split(".")[0]
+        path = "/data/web_static/releases/"
         put(archive_path, '/tmp/')
-
-        # Uncompress the archive to /data/web_static/releases/<archive filename without extension>
-        archive_filename = archive_path.split('/')[-1]
-        release_folder = '/data/web_static/releases/{}'.format(
-            archive_filename[:-4]
-        )
-        run('sudo mkdir -p {}'.format(release_folder))
-        run('sudo tar -xzf /tmp/{} -C {}'.format(archive_filename, release_folder))
-
-        # Delete the archive from the web server
-        run('sudo rm /tmp/{}'.format(archive_filename))
-
-        # Delete the symbolic link /data/web_static/current
-        run('sudo rm -rf /data/web_static/current')
-
-        # Create a new symbolic link /data/web_static/current
-        run('sudo ln -s {} /data/web_static/current'.format(release_folder))
-
+        run('mkdir -p {}{}/'.format(path, no_ext))
+        run('tar -xzf /tmp/{} -C {}{}/'.format(file_n, path, no_ext))
+        run('rm /tmp/{}'.format(file_n))
+        run('mv {0}{1}/web_static/* {0}{1}/'.format(path, no_ext))
+        run('rm -rf {}{}/web_static'.format(path, no_ext))
+        run('rm -rf /data/web_static/current')
+        run('ln -s {}{}/ /data/web_static/current'.format(path, no_ext))
         return True
-    except Exception as e:
-        print(e)
+    except:
         return False
+
 
 def deploy():
-    """Creates and distributes an archive to your web servers."""
-    # Call do_pack function and store the path of the created archive
+    """creates and distributes an archive to the web servers"""
     archive_path = do_pack()
-
-    # Return False if no archive has been created
-    if not archive_path:
+    if archive_path is None:
         return False
-
-    # Call do_deploy function, using the new path of the new archive
     return do_deploy(archive_path)
-
-
-if __name__ == "__main__":
-    deploy()
-
