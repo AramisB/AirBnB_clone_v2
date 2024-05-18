@@ -9,12 +9,15 @@ from models import storage
 app = Flask(__name__)
 app.url_map.strict_slashes = False
 
+
 @app.teardown_appcontext
 def teardown_db(exception):
     """
     closes the storage on teardown
     """
     storage.close()
+
+
 @app.route('/states_list')
 def states_list():
     """
