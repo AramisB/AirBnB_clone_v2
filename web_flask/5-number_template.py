@@ -42,30 +42,20 @@ def python(text):
     return f"Python {text_with_spaces}"
 
 
-@app.route('/number/<n>')
+@app.route('/number/<int:n>')
 def number(n):
     """
     A function that displays a number only if it's an integer
     """
-    try:
-        n = int(n)
-        return redirect(f"/number_template/{n}")
+    return redirect(f"/number_template/{n}")
 
-    except ValueError:
-        abort(404)
-
-
-@app.route('/number_template/<n>')
+@app.route('/number_template/<int:n>')
 def number_template(n):
     """
     A function that displays a HTML page only n is an integer
     """
-    try:
-        n = int(n)
-        return render_template('5-number.html', n=n)
-    except ValueError:
-        abort(404)
-
+    return render_template('5-number.html', n=n)
+    
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)
