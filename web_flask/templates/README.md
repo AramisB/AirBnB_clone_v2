@@ -1,0 +1,1 @@
+HTML pages to be rendered
