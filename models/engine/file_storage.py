@@ -65,12 +65,6 @@ class FileStorage:
         except json.decoder.JSONDecodeError:
             pass
 
-    def close(self):
-        """
-        calls reload for deserializing the file object
-        """
-        self.reload()
-
     def delete(self, obj=None):
         """
          Delete obj from __objects if it’s inside - if obj is equal to None,
@@ -86,3 +80,8 @@ class FileStorage:
             pass
         except KeyboardInterrupt:
             pass
+    def close(self):
+        """
+        calls reload for deserializing the file object
+        """
+        self.reload()
