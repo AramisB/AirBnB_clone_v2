@@ -5,7 +5,8 @@ A script that starts Flask web application
 from flask import Flask
 
 app = Flask(__name__)
-@app.route('/', strict_slashes=False)
+app.url_map.strict_slashes = False
+@app.route('/')
 def hello():
     """
     A function that returns "Hello HBNB!"
@@ -13,7 +14,7 @@ def hello():
     return ('Hello HBNB!')
 
 
-@app.route('/hbnb', strict_slashes=False)
+@app.route('/hbnb')
 def hbnb():
     """
     A function that returns HBNB
@@ -21,7 +22,7 @@ def hbnb():
     return ('HBNB')
 
 
-@app.route('/c/<text>', strict_slashes=False)
+@app.route('/c/<text>')
 def c(text):
     """
     A function that displays C followed by text input
@@ -30,8 +31,8 @@ def c(text):
     return f"C {text_with_spaces}"
 
 
-@app.route('/python/', defaults={'text': 'is_cool'}, strict_slashes=False)
-@app.route('/python/<text>', strict_slashes=False)
+@app.route('/python/', defaults={'text': 'is_cool'})
+@app.route('/python/<text>')
 def python(text):
     """
     A function that displays Python followed by text input
@@ -42,4 +43,4 @@ def python(text):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000)
