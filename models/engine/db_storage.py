@@ -60,7 +60,7 @@ class DBStorage:
     def delete(self, obj):
         """delete object"""
         self.__session.delete(obj)
-
+    
     def reload(self):
         """
         create all tables in the database
@@ -72,3 +72,9 @@ class DBStorage:
             )
         Session = scoped_session(session_fact)
         self.__session = Session()
+
+    def close(self):
+        """
+        call remove() method on the private session attribute (self.__session)
+        """
+        self.__session.remove()
