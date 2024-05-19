@@ -4,6 +4,7 @@ A script that starts Flask web application
 """
 from flask import Flask, render_template
 from models.state import State
+from models.amenity import Amenity
 from models import storage
 
 app = Flask(__name__)
@@ -17,15 +18,15 @@ def teardown_db(exception):
     """
     storage.close()
 
-
-@app.route('/cities_by_states')
-def states_by_states():
+@app.route('/hbnb_filters')
+def hbnb_filters():
     """
-    display a HTML page with the states listed in alphabetical order
+    Display a HTML page with States, Cities, and Amenities
     """
     states = storage.all(State).values()
-    return render_template('8-cities_by_states.html', states=states)
+    amenities = storage.all(Amenity).values()
+    return render_template('10-hbnb_filters.html', states=states, amenities=amenities)
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=5000)
