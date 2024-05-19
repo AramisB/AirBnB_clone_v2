@@ -2,12 +2,14 @@
 """
 A script that starts Flask web application
 """
-from flask import Flask, abort, render_template, redirect
 
+from flask import Flask, abort, render_template, redirect
 app = Flask(__name__)
 app.url_map.strict_slashes = False
+
+
 @app.route('/')
-def hello():
+def index():
     """
     A function that returns "Hello HBNB!"
     """
