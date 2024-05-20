@@ -19,6 +19,7 @@ class State(BaseModel, Base):
     if getenv("HBNB_TYPE_STORAGE") != "db":
         name = ''
         cities = []
+
         @property
         def cities(self):
             """
